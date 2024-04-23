@@ -1,36 +1,46 @@
+mi_diccionario = {}
 import os
+sw = True
 
-diccionario = {}
-dispatch_number = 1
-
-def fnt_agregar(diccionario, placa, descripcion_vehiculo, nombre, contacto, ruta, descripcion_carga, dispatch_number):
-    if placa == '' or descripcion_vehiculo == '' or nombre == '' or contacto == '' or ruta == '' or descripcion_carga == '':
-        enter = input('No se puede agregar un vehiculo sin datos <ENTER>')
+numero_compras = 0
+def fnt_compras ():
+    global numero_compras
+def fnt_agregar(mi_diccionario, nombre, direccion, contacto, sexo, descripcion, producto, referencia, cantidad, numero_compras):
+    if nombre == '' or direccion == '' or contacto == '' or sexo == '' or descripcion == '' or cantidad == '' or producto == '' or referencia == '' or cantidad == '':
+        enter = input('Debe diligenciar toda la informacion >ENTER<')
     else:
-        diccionario[dispatch_number] = {'Placa': placa, 'Descripcion del vehiculo': descripcion_vehiculo, 'Nombre': nombre, 'Contacto': contacto, 'Ruta': ruta, 'descripcion de la carga': descripcion_carga}
-        dispatch_number += 1
-        enter = input(f'\n La persona {nombre} ha sido registrada con éxito <ENTER>')
-
+        mi_diccionario[nombre] = {' CLIENTE:' ,nombre }
+        numero_compras += 1
+                 
+                 
 def fnt_selector(op):
-    if op == 1:
+    if op == '1':
+        nombre = input('Ingrese su nombre:  ')
+        direccion = input('Ingrese su direccion:  ')    
+        contacto = input('Ingrese su numero de contacto:   ')
+        sexo = input('Ingrese su sexo(FEMENINO O MASCULINO):  ')
+        descripcion = input('Agregue una descripcion del lugar donde se hara entrega el producto:  ')
         os.system('cls')
-        placa = input('Ingrese la placa del vehiculo: ')
-        descripcion_vehiculo = input('Ingrese la descripcion del vehiculo: ')
-        nombre = input('Ingrese el nombre del conductor: ')
-        contacto = input('Ingrese el contacto del conductor: ')
-        ruta = input('Ingrese la ruta del vehiculo: ')
-        descripcion_carga = input('Ingrese la descripcion de la carga: ')
-        fnt_agregar(diccionario, placa, descripcion_vehiculo, nombre, contacto, ruta, descripcion_carga, dispatch_number)
+        print('Adicional a ello necesitamos otra informacion para terminar tu pedido')
+        producto = input('Ingrese el nombre del producto:  ')
+        referencia = input('Ingrese la referencia: ')
+        cantidad = input('Ingrese la cantidad: ')
+        fnt_agregar(mi_diccionario,nombre, direccion, contacto, sexo, descripcion, producto, referencia, cantidad, numero_compras)
 
-def fnt_salida(dispatch_number):
-    if dispatch_number in diccionario:
-        dispatch = diccionario[dispatch_number]
-        print(f'\nDispatch {dispatch_number}:')
-        print(f'Placa: {dispatch["Placa"]}')
-        print(f'Descripcion del vehiculo: {dispatch["Descripcion del vehiculo"]}')
-        print(f'Nombre: {dispatch["Nombre"]}')
-        print(f'Contacto: {dispatch["Contacto"]}')
-        print(f'Ruta: {dispatch["Ruta"]}')
-        print(f'Descripcion de la carga: {dispatch["descripcion de la carga"]}')
-    else:
-        print(f'No se encontro el dispatch {dispatch_number}')
+        
+    
+    
+        
+while sw == True:
+    os.system('cls')
+    opcion = input('\n1. COMPRAR PRODUCTO\n2. MOSTRAR PEDIDOS REALIZADOS\n3. SALIR\n->')
+    if opcion == '1':
+        fnt_selector(opcion)
+    if opcion == '2':
+        os.system('cls')
+        print('COMPRAS REALIZADAS: ' ,len(mi_diccionario),'\n')
+        for clave, valor in mi_diccionario.items():
+            print(f"{clave}: {valor}")
+        enter = input('\n\nPresione ENTER para continuar...')
+    if opcion == '3':
+        sw = False
