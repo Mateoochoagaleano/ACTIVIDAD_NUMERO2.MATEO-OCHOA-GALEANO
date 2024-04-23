@@ -1,52 +1,40 @@
-import os
-nDespachos = 0
-diccionario_despacho = {}
+mi_diccionario = {}
+import os  
 sw = True
-def fnt_agregar(diccionario, placa, descripcion_vehiculo, nombre, contacto, ruta, descripcion_carga  ):
-    global nDespachos
-    if placa == '' or descripcion_vehiculo == '' or nombre == '' or contacto == '' or ruta == '' or descripcion_carga == '':
-        enter = input('debe de diligenciar toda la informacion solicitadad <ENTER>')
-    else :
-        diccionario[placa] = {'Descipción del vehiculo': descripcion_vehiculo, 'nombre': nombre, 'contacto': contacto, 'ruta': ruta, 'descripcion de la carga': descripcion_carga}
-        nDespachos += 1
-    enter = input(f'\nLa persona {nombre} Ha sido registrado con exito :) <ENTER>')
 
+numero_despacho = 0
+def fnt_despacho():
+    global numero_despacho
 
-def fnt_consultar():
-    global diccionario_despacho
+def fnt_agregar(mi_diccionario, placa, conductor, ruta, carga, numero_despacho):
+    if placa == '' or conductor == '' or ruta == '' or carga == '': 
+        enter = input('Debe diligenciar toda la información solicitada >ENTER<')
+    else:
+        mi_diccionario[placa] = {'CONDUCTOR': conductor, 'RUTA': ruta, 'CARGA': carga}
+        numero_despacho += 1
+        enter = input(f'\nEl vehiculo {placa} ha sido despachado con éxito')
+        
+        
+    
+def fnt_selector(op):
+    if op == '1':
+        placa = input('Ingrese la placa del vehiculo: ->  ')
+        conductor = input('Ingrese el nombre del conductor: ->  ')
+        ruta = input('Ingrese la ruta del viaje (salida-destino): ->  ')
+        carga = input('Describa la carga del viaje: ->  ')
+        fnt_agregar(mi_diccionario, placa, conductor, ruta, carga, numero_despacho)
+        
+while sw == True:
     os.system('cls')
-    print('\nCantidad de registros: ',nDespachos,'\n')
-    for key, valor in diccionario_despacho.items():
-        print(f'Numero de placa: {key}')
-        print(f'{valor}')
-    enter = input('\n\nPresione ENTER para continuar...')
-
-
-def fnt_selector(opcion):
-    global sw
-    global diccionario_despacho
-
+    opcion = input('1. REGISTRAR SALIDA\n2. MOSTRAR\n3. SALIR\n- >  ')
     if opcion == '1':
+        fnt_selector(opcion)
+    if opcion == '2':
         os.system('cls')
-        nombre = input('Nombre: ')
-        placa = input('placa: ')
-        contacto = input('contacto: ')
-        descripcion_vehiculo = input('vehiculo: ')
-        descripcion_carga = input('carga: ')
-        ruta = input('ruta: ')
-        fnt_agregar (diccionario_despacho, placa, descripcion_vehiculo, nombre, contacto, ruta, descripcion_carga)
-
-    elif opcion == '2':
-        fnt_consultar()
-
-    elif opcion == '3':
-        sw = False
-
-
-
-while sw == True: 
-    os.system('cls')
-    opcion = input('1. Registrar\n2. Mostrar\n3. Salir\n- >  ')
-    fnt_selector(opcion)
-
+        print('\nCantidad de registros: ',len(mi_diccionario),'\n')
+        for clave, valor in mi_diccionario.items():
+            print(f"{clave}: {valor}")
+        enter = input('\n\nPresione ENTER para continuar...')
+    if opcion == '3':
+        sw= False
 
